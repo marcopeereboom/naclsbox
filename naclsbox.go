@@ -16,7 +16,7 @@ import (
 var (
 	encrypt = flag.Bool("e", false, "Encrypt files")
 	decrypt = flag.Bool("d", false, "Decrypt files")
-	key     = flag.String("k", "", "Decryption key ")
+	key     = flag.String("k", "", "Symmetric encryption key ")
 )
 
 func decodeKey(k string) (*[32]byte, error) {
@@ -96,13 +96,24 @@ func _main() error {
 	// -d requires a key
 	if *decrypt && *key == "" {
 		flag.PrintDefaults()
-		return errors.New("must provide only -k when decrypting\n")
+		return errors.New("must provide -k when decrypting\n")
 	}
 
 	if *encrypt {
-		k, err := newKey()
-		if err != nil {
-			return err
+		// Allow user to optionally specify encryption key
+		var k *[32]byte
+		if *key != "" {
+			var err error
+			k, err = decodeKey(*key)
+			if err != nil {
+				return err
+			}
+		} else {
+			var err error
+			k, err = newKey()
+			if err != nil {
+				return err
+			}
 		}
 		fmt.Printf("encryption key: %x\n", *k)
 
