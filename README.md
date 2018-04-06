@@ -3,6 +3,11 @@
 NaClSecretBox is a utility to encrypt and decrypt multiple files using
 the same key but a different nonce.
 
+Installation:
+```
+go get github.com/marcopeereboom/naclsbox
+```
+
 Encryption example:
 ```
 $ naclsbox -e myfile 
