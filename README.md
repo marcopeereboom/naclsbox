@@ -19,7 +19,7 @@ go get github.com/marcopeereboom/naclsbox
 
 Encryption example:
 ```
-$ naclsbox -e myfile 
+$ go run naclsbox.go -e myfile 
 encryption key: 0c4d1b5840347b698b92e7c33a87f52e721616fede4c82ce22a0783001cc6c92
 ```
 This generated a file called `myfile.sbox` which contains the encrypted data.
@@ -30,7 +30,7 @@ In order to reverse the process must provide the key and encrypted blob filename
 
 Decryption example:
 ```
-$ naclsbox -d -k 0c4d1b5840347b698b92e7c33a87f52e721616fede4c82ce22a0783001cc6c92 myfile.sbox
+$ go run naclsbox.go -d -k 0c4d1b5840347b698b92e7c33a87f52e721616fede4c82ce22a0783001cc6c92 myfile.sbox
 ```
 This generated a file called `myfile.sbox.decrypted` which should be an identical copy of `myfile`.
 
